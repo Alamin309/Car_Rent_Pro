@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Airport Pickup</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#f5f5f5;
+    margin:0;
+}
+
+/* HEADER */
+.header{
+    background:#111;
+    color:#fff;
+    padding:20px;
+    text-align:center;
+    position:relative;
+}
+
+.home-btn{
+    position:absolute;
+    right:20px;
+    top:20px;
+    padding:8px 15px;
+    background:#f39c12;
+    border:none;
+    color:#fff;
+    cursor:pointer;
+    border-radius:5px;
+}
+
+/* SECTION */
+.section{
+    padding:50px;
+    text-align:center;
+}
+
+/* FORM */
+.form-box{
+    background:#fff;
+    padding:30px;
+    max-width:500px;
+    margin:auto;
+    border-radius:10px;
+}
+
+.form-box input, .form-box select{
+    width:100%;
+    padding:10px;
+    margin:10px 0;
+}
+
+.form-box button{
+    width:100%;
+    padding:12px;
+    border:none;
+    background:#f39c12;
+    color:#fff;
+    cursor:pointer;
+}
+
+/* FOOTER */
+.footer{
+    background:#111;
+    color:#fff;
+    padding:20px;
+    text-align:center;
+    margin-top:40px;
+}
+</style>
+
+</head>
+<body>
+    <div class="header">
+    <h2>Airport Pickup</h2>
+    <button onclick="goHome()" class="home-btn">Home</button>
+</div>
+
+
+
+<div class="section">
+    <p>Book a reliable airport pickup service anytime.</p>
+
+    <div class="form-box">
+        <form onsubmit="bookAirport(event)">
+            
+            <input type="text" placeholder="Pickup Airport (e.g. Dhaka Airport)" required>
+
+            <input type="text" placeholder="Drop Location" required>
+
+            <input type="date" required>
+
+            <input type="time" required>
+
+            <select required>
+                <option value="">Passengers</option>
+                <option>1-2</option>
+                <option>3-4</option>
+                <option>5+</option>
+            </select>
+
+            <button>Book Now</button>
+
+        </form>
+    </div>
+</div>
+
+<div class="footer">
+    <p>© 2026 CarRent</p>
+</div>
+
+<script>
+function bookAirport(e){
+    e.preventDefault();
+
+    let inputs = e.target.querySelectorAll("input, select");
+
+    let booking = {
+        airport: inputs[0].value,
+        drop: inputs[1].value,
+        date: inputs[2].value,
+        time: inputs[3].value,
+        passengers: inputs[4].value
+    };
+
+    let data = JSON.parse(localStorage.getItem("airportBookings")) || [];
+    data.push(booking);
+
+    localStorage.setItem("airportBookings", JSON.stringify(data));
+
+    alert("Airport Pickup Booked!");
+    e.target.reset();
+}
+</script>
+
+</body>
+</html>
